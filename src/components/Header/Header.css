@@ -1,0 +1,25 @@
+header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+  background-color: #1e293b;
+  color: #ffffff;
+  font-size: 24px;
+}
+
+header nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+header nav a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+header nav a:hover {
+  text-decoration: underline;
+}
