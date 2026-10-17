@@ -64,3 +64,44 @@
     display: flex;
   }
 }
+
+.registerButton {
+  padding: 10px 16px;
+  border: 1px solid #ffffff;
+  border-radius: 8px;
+  background-color: #ffffff;
+  color: #1e293b;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.registerButton:hover {
+  background-color: #e2e8f0;
+}
+
+@media (max-width: 480px) {
+  .registerButton {
+    align-self: flex-start;
+  }
+}
+
+.userName {
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.logoutButton {
+  padding: 8px 14px;
+  color: #ffffff;
+  background-color: transparent;
+  border: 1px solid #ffffff;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.logoutButton:hover {
+  background-color: #334155;
+}

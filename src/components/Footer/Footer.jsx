@@ -1,8 +1,11 @@
+import styles from './Footer.module.css';
 
 const Footer = () => {
   return (
-    <footer>
-      <p>Weather App © 2026</p>
+    <footer className={styles.footer}>
+      <p className={styles.text}>
+        © {new Date().getFullYear()} Weather App. All rights reserved.
+      </p>
     </footer>
   );
 };

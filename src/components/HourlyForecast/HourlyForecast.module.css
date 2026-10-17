@@ -1,0 +1,20 @@
+.time {
+  color: #64748b;
+  font-size: 12px;
+}
+
+.icon {
+  font-size: 24px;
+}
+
+.temperature {
+  color: #1e293b;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+@media (max-width: 480px) {
+  .list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

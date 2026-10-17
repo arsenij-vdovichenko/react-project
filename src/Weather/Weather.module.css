@@ -102,3 +102,59 @@
   font-size: 28px;
   font-weight: 700;
 }
+
+.weatherDetails {
+  margin-top: 16px;
+  padding: 14px;
+  background-color: #f1f5f9;
+  border-radius: 10px;
+  text-align: left;
+}
+
+.weatherDetails p {
+  margin: 8px 0;
+  color: #334155;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.cityName {
+  padding: 0;
+  color: #1e293b;
+  background: none;
+  border: none;
+  font-size: 20px;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.cityName:hover {
+  color: #2563eb;
+}
+
+.forecastButtons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.forecastButton {
+  padding: 9px 16px;
+  color: #1e293b;
+  background-color: #e2e8f0;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.forecastButton:hover {
+  background-color: #cbd5e1;
+}
+
+.forecastButton[aria-pressed='true'] {
+  color: #ffffff;
+  background-color: #2563eb;
+}

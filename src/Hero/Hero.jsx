@@ -29,6 +29,15 @@ return (
     Find the weather in your city
   </p>
 
+  <p className={styles.date}>
+  {new Date().toLocaleDateString('en-IE', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  })}
+</p>
+
   <form className={styles.searchForm} onSubmit={handleSubmit}>
     <input
       className={styles.searchInput}

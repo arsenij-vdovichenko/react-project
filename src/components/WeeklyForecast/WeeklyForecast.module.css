@@ -1,0 +1,47 @@
+.forecast {
+  margin-top: 16px;
+  padding: 16px;
+  background-color: #ffffff;
+  border-radius: 10px;
+}
+
+.title {
+  margin: 0 0 14px;
+  color: #1e293b;
+  font-size: 18px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.item {
+  display: grid;
+  grid-template-columns: 1fr 40px 1fr;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  background-color: #f1f5f9;
+  border-radius: 8px;
+}
+
+.day {
+  color: #334155;
+  font-weight: 600;
+}
+
+.icon {
+  font-size: 22px;
+  text-align: center;
+}
+
+.temperatures {
+  color: #1e293b;
+  font-size: 14px;
+  text-align: right;
+}
