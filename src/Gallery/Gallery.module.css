@@ -72,3 +72,80 @@
 .galleryCard {
   overflow: hidden;
 }
+
+@media (max-width: 480px) {
+  .gallery {
+    padding: 24px 16px;
+  }
+
+  .galleryList {
+    grid-template-columns: 1fr;
+  }
+
+  .galleryCard {
+    min-width: 0;
+  }
+
+  .image {
+    height: 180px;
+  }
+}
+
+
+.photoButton {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.photoButton:focus-visible {
+  outline: 3px solid #2563eb;
+  outline-offset: 3px;
+}
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.85);
+}
+
+.lightboxContent {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 20px;
+  border-radius: 12px;
+  background: #ffffff;
+  text-align: center;
+}
+
+.largeImage {
+  display: block;
+  width: 100%;
+  max-height: 70vh;
+  object-fit: contain;
+}
+
+.closeButton {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 1;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: #ffffff;
+  font-size: 26px;
+  cursor: pointer;
+}

@@ -158,3 +158,27 @@
   color: #ffffff;
   background-color: #2563eb;
 }
+
+@media (max-width: 480px) {
+  .weather {
+    padding: 24px 16px;
+  }
+
+  .cityItem {
+    min-width: 0;
+    padding: 16px;
+  }
+
+  .weatherDetails {
+    min-width: 0;
+    padding: 12px;
+  }
+
+  .forecastButtons {
+    gap: 6px;
+  }
+
+  .forecastButton {
+    padding: 8px 12px;
+  }
+}

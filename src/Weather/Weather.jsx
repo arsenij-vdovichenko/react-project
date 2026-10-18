@@ -1,10 +1,69 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from "./Weather.module.css"
 import HourlyForecast from "../components/HourlyForecast/HourlyForecast"
 import WeeklyForecast from "../components/WeeklyForecast/WeeklyForecast"
+import { getCurrentWeather } from '../services/weatherApi';
 const Weather = ({ cities, onDeleteCity }) => {
   const [expandedCity, setExpandedCity] = useState(null);
   const [forecastType, setForecastType] = useState('hourly');
+  const [weatherData, setWeatherData] = useState({});
+  const [loadingCities, setLoadingCities] = useState({});
+  const [errors, setErrors] = useState({});
+
+  const loadCityWeather = async (city) => {
+    setLoadingCities((prev) => ({
+      ...prev,
+      [city]: true,
+    }));
+
+    setErrors((prev) => ({
+      ...prev,
+      [city]: '',
+    }));
+
+    try {
+      const data = await getCurrentWeather(city);
+
+      setWeatherData((prev) => ({
+        ...prev,
+        [city]: data,
+      }));
+
+      setErrors((prev) => ({
+        ...prev,
+        [city]: '',
+      }));
+    } catch (error) {
+      setErrors((prev) => ({
+        ...prev,
+        [city]: error.message || 'Could not load weather.',
+      }));
+    } finally {
+      setLoadingCities((prev) => ({
+        ...prev,
+        [city]: false,
+      }));
+    }
+  };
+
+  useEffect(() => {
+    cities.forEach((city) => {
+      if (city.trim()) {
+        loadCityWeather(city);
+      }
+    });
+
+    // Завантажуємо погоду для міст, які є у списку.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cities]);
+
+  const handleRefreshAll = () => {
+    cities.forEach((city) => {
+      if (city.trim()) {
+        loadCityWeather(city);
+      }
+    });
+  };
 
   const handleToggleDetails = (city) => {
     setExpandedCity((currentCity) =>
@@ -12,9 +71,26 @@ const Weather = ({ cities, onDeleteCity }) => {
     );
   };
 
+  const handleDeleteCity = (city) => {
+    onDeleteCity(city);
+
+    if (expandedCity === city) {
+      setExpandedCity(null);
+    }
+  };
+
   return (
     <section className={styles.weather} id="weather">
       <h2 className={styles.title}>Weather in your cities</h2>
+
+      <button
+        className={styles.forecastButton}
+        type="button"
+        onClick={handleRefreshAll}
+        disabled={cities.length === 0}
+      >
+        Refresh all weather
+      </button>
 
       {cities.length === 0 ? (
         <p className={styles.weatherPlaceholder}>
@@ -22,70 +98,113 @@ const Weather = ({ cities, onDeleteCity }) => {
         </p>
       ) : (
         <ul className={styles.cityList}>
-          {cities.map((city) => (
-            <li className={styles.cityItem} key={city}>
-              <button
-                className={styles.cityName}
-                type="button"
-                onClick={() => handleToggleDetails(city)}
-                aria-expanded={expandedCity === city}
-              >
-                {city}
-              </button>
+          {cities.map((city) => {
+            const data = weatherData[city];
+            const isLoading = Boolean(loadingCities[city]);
+            const error = errors[city];
 
-              <div className={styles.weatherInfo}>
-                <span className={styles.weatherIcon} aria-hidden="true">
-                  ☀️
-                </span>
-                <span className={styles.temperature}>22°C</span>
-              </div>
+            return (
+              <li className={styles.cityItem} key={city}>
+                <button
+                  className={styles.cityName}
+                  type="button"
+                  onClick={() => handleToggleDetails(city)}
+                  aria-expanded={expandedCity === city}
+                >
+                  {city}
+                </button>
 
-              <p className={styles.weatherPlaceholder}>Sunny</p>
+                {isLoading && !data ? (
+                  <p className={styles.weatherPlaceholder}>
+                    Loading weather...
+                  </p>
+                ) : error && !data ? (
+                  <p role="alert">{error}</p>
+                ) : data ? (
+                  <>
+                    <div className={styles.weatherInfo}>
+                      <img
+                        src={`https://openweathermap.org/img/wn/${data.icon}@2x.png`}
+                        alt={data.description}
+                        width="60"
+                        height="60"
+                      />
 
-              {expandedCity === city && (
-                <div className={styles.weatherDetails}>
-                  <p>Feels like: 20°C</p>
-                  <p>Wind speed: 12 km/h</p>
-                  <p>Humidity: 55%</p>
-                  <p>Conditions: Clear sky</p>
+                      <span className={styles.temperature}>
+                        {data.temperature}°C
+                      </span>
+                    </div>
 
-                  <div className={styles.forecastButtons}>
-                    <button
-                      className={styles.forecastButton}
-                      type="button"
-                      onClick={() => setForecastType('hourly')}
-                      aria-pressed={forecastType === 'hourly'}
-                    >
-                      Hourly
-                    </button>
+                    <p className={styles.weatherPlaceholder}>
+                      {data.description}
+                    </p>
 
-                    <button
-                      className={styles.forecastButton}
-                      type="button"
-                      onClick={() => setForecastType('weekly')}
-                      aria-pressed={forecastType === 'weekly'}
-                    >
-                      7 days
-                    </button>
+                    {error && (
+                      <p role="alert">
+                        Could not refresh weather: {error}
+                      </p>
+                    )}
+                  </>
+                ) : (
+                  <p className={styles.weatherPlaceholder}>
+                    Weather data unavailable.
+                  </p>
+                )}
+
+                <button
+                  className={styles.forecastButton}
+                  type="button"
+                  onClick={() => loadCityWeather(city)}
+                  disabled={isLoading}
+                >
+                  {isLoading ? 'Refreshing...' : 'Refresh'}
+                </button>
+
+                {expandedCity === city && data && (
+                  <div className={styles.weatherDetails}>
+                    <p>Feels like: {data.feelsLike}°C</p>
+                    <p>Wind speed: {data.windSpeed} km/h</p>
+                    <p>Humidity: {data.humidity}%</p>
+                    <p>Conditions: {data.description}</p>
+
+                    <div className={styles.forecastButtons}>
+                      <button
+                        className={styles.forecastButton}
+                        type="button"
+                        onClick={() => setForecastType('hourly')}
+                        aria-pressed={forecastType === 'hourly'}
+                      >
+                        Hourly
+                      </button>
+
+                      <button
+                        className={styles.forecastButton}
+                        type="button"
+                        onClick={() => setForecastType('weekly')}
+                        aria-pressed={forecastType === 'weekly'}
+                      >
+                        7 days
+                      </button>
+                    </div>
+
+                    {forecastType === 'hourly' ? (
+                      <HourlyForecast />
+                    ) : (
+                      <WeeklyForecast />
+                    )}
                   </div>
+                )}
 
-                  {forecastType === 'hourly' ? (
-                    <HourlyForecast />
-                  ) : (
-                    <WeeklyForecast />
-                  )}
-                </div>
-              )}
-
-              <button
-                className={styles.deleteButton}
-                type="button"
-                onClick={() => onDeleteCity(city)}
-              >
-                Delete
-              </button>
-            </li>
-          ))}
+                <button
+                  className={styles.deleteButton}
+                  type="button"
+                  onClick={() => handleDeleteCity(city)}
+                >
+                  Delete
+                </button>
+              </li>
+            );
+          })}
         </ul>
       )}
     </section>
