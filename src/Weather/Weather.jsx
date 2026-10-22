@@ -3,6 +3,7 @@ import styles from "./Weather.module.css"
 import HourlyForecast from "../components/HourlyForecast/HourlyForecast"
 import WeeklyForecast from "../components/WeeklyForecast/WeeklyForecast"
 import { getCurrentWeather } from '../services/weatherApi';
+
 const Weather = ({ cities, onDeleteCity }) => {
   const [expandedCity, setExpandedCity] = useState(null);
   const [forecastType, setForecastType] = useState('hourly');
@@ -53,7 +54,7 @@ const Weather = ({ cities, onDeleteCity }) => {
       }
     });
 
-    // Завантажуємо погоду для міст, які є у списку.
+    // Завантажуємо погоду, коли змінюється список міст.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cities]);
 
@@ -188,9 +189,9 @@ const Weather = ({ cities, onDeleteCity }) => {
                     </div>
 
                     {forecastType === 'hourly' ? (
-                      <HourlyForecast />
+                      <HourlyForecast city={city} />
                     ) : (
-                      <WeeklyForecast />
+                      <WeeklyForecast city={city} />
                     )}
                   </div>
                 )}

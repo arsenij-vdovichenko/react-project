@@ -1,33 +1,92 @@
+import { useEffect, useState } from 'react';
 import styles from './HourlyForecast.module.css';
+import { getForecast } from '../../services/forecastApi';
 
-const forecast = [
-  { time: '09:00', temp: 18, icon: '☀️' },
-  { time: '12:00', temp: 22, icon: '🌤️' },
-  { time: '15:00', temp: 24, icon: '☀️' },
-  { time: '18:00', temp: 21, icon: '🌥️' },
-  { time: '21:00', temp: 17, icon: '🌙' },
-];
+const HourlyForecast = ({ city }) => {
+const [forecast, setForecast] = useState([]);
+const [isLoading, setIsLoading] = useState(true);
+const [error, setError] = useState('');
 
-const HourlyForecast = () => {
-  return (
-    <div className={styles.forecast}>
-      <h3 className={styles.title}>Hourly forecast</h3>
+useEffect(() => {
+let isCancelled = false;
 
-      <ul className={styles.list}>
-        {forecast.map((item) => (
-          <li className={styles.item} key={item.time}>
-            <span className={styles.time}>{item.time}</span>
-            <span className={styles.icon} aria-hidden="true">
-              {item.icon}
-            </span>
-            <span className={styles.temperature}>
-              {item.temp}°C
-            </span>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
+const loadForecast = async () => {
+  try {
+    setIsLoading(true);
+    setError('');
+
+    const data = await getForecast(city);
+
+    if (!isCancelled) {
+      setForecast(data.slice(0, 8));
+    }
+  } catch (error) {
+    if (!isCancelled) {
+      setError(error.message || 'Could not load forecast.');
+    }
+  } finally {
+    if (!isCancelled) {
+      setIsLoading(false);
+    }
+  }
+};
+
+loadForecast();
+
+return () => {
+  isCancelled = true;
+};
+
+}, [city]);
+
+if (isLoading) {
+return <p className={styles.message}>Loading hourly forecast...</p>;
+}
+
+if (error) {
+return (
+<p className={styles.error} role="alert">
+{error}
+</p>
+);
+}
+
+if (forecast.length === 0) {
+return <p className={styles.message}>No forecast available.</p>;
+}
+
+return (
+<div className={styles.forecast}>
+<h3 className={styles.title}>Hourly Forecast</h3>
+
+  <ul className={styles.list}>
+    {forecast.map((item) => (
+      <li className={styles.item} key={item.dateTime}>
+        <span className={styles.time}>
+          {item.dateTime.slice(11, 16)}
+        </span>
+
+        <img
+          className={styles.icon}
+          src={`https://openweathermap.org/img/wn/${item.icon}.png`}
+          alt={item.description}
+          width="48"
+          height="48"
+        />
+
+        <span className={styles.temperature}>
+          {item.temperature}°C
+        </span>
+
+        <span className={styles.description}>
+          {item.description}
+        </span>
+      </li>
+    ))}
+  </ul>
+</div>
+
+);
 };
 
 export default HourlyForecast;
