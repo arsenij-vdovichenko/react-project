@@ -30,6 +30,7 @@ const Header = () => {
   const handleLogout = () => {
   localStorage.removeItem('user');
   setUser(null);
+  setIsMenuOpen(false);
 };
 
   return (

@@ -1,34 +1,70 @@
 .gallery {
-  padding: 32px 24px;
-  background-color: #f8fafc;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 24px;
+  background-color: #ffffff;
 }
 
 .title {
-  margin: 0 0 20px;
-  color: #1e293b;
-  font-size: 24px;
+  margin: 0 0 24px;
+  color: #292020;
+  font-size: 28px;
+  font-weight: 700;
+  text-align: center;
 }
 
 .galleryList {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 16px;
+  gap: 20px;
   padding: 0;
   margin: 0;
   list-style: none;
 }
 
 .galleryCard {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  min-height: 160px;
-  padding: 20px;
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  background-color: #ffffff;
+  min-width: 0;
+  overflow: hidden;
+  padding: 12px;
+  border: 1px solid #efcaca;
+  border-radius: 16px;
+  background-color: #f6dada;
+  box-shadow: 0 8px 24px rgba(90, 45, 45, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.galleryCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(90, 45, 45, 0.13);
+}
+
+.photoButton {
+  display: block;
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+  transition: transform 0.25s ease;
+}
+
+.photoButton:hover .image {
+  transform: scale(1.04);
+}
+
+.photoButton:focus-visible {
+  outline: 3px solid #ffa94d;
+  outline-offset: 4px;
 }
 
 .emoji {
@@ -36,74 +72,10 @@
 }
 
 .itemTitle {
-  margin: 0;
-  color: #1e293b;
+  margin: 12px 0 4px;
+  color: #292020;
   font-size: 16px;
-}
-
-@media (max-width: 767px) {
-  .galleryList {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 480px) {
-  .gallery {
-    padding: 24px 16px;
-  }
-
-  .title {
-    font-size: 20px;
-  }
-
-  .galleryList {
-    grid-template-columns: 1fr;
-  }
-}
-
-.image {
-  display: block;
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 10px;
-}
-
-.galleryCard {
-  overflow: hidden;
-}
-
-@media (max-width: 480px) {
-  .gallery {
-    padding: 24px 16px;
-  }
-
-  .galleryList {
-    grid-template-columns: 1fr;
-  }
-
-  .galleryCard {
-    min-width: 0;
-  }
-
-  .image {
-    height: 180px;
-  }
-}
-
-
-.photoButton {
-  display: block;
-  width: 100%;
-  padding: 0;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-}
-
-.photoButton:focus-visible {
-  outline: 3px solid #2563eb;
-  outline-offset: 3px;
+  text-align: center;
 }
 
 .lightbox {
@@ -114,7 +86,7 @@
   align-items: center;
   justify-content: center;
   padding: 20px;
-  background: rgba(0, 0, 0, 0.85);
+  background: rgba(25, 20, 20, 0.88);
 }
 
 .lightboxContent {
@@ -124,8 +96,9 @@
   max-height: 90vh;
   overflow-y: auto;
   padding: 20px;
-  border-radius: 12px;
-  background: #ffffff;
+  border: 1px solid #efcaca;
+  border-radius: 16px;
+  background: #f6dada;
   text-align: center;
 }
 
@@ -133,6 +106,7 @@
   display: block;
   width: 100%;
   max-height: 70vh;
+  border-radius: 10px;
   object-fit: contain;
 }
 
@@ -141,11 +115,61 @@
   top: 8px;
   right: 8px;
   z-index: 1;
-  width: 36px;
-  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
   border: none;
   border-radius: 50%;
-  background: #ffffff;
+  background: #ffa94d;
+  color: #292020;
   font-size: 26px;
   cursor: pointer;
+}
+
+.closeButton:hover {
+  background: #f39432;
+}
+
+@media (max-width: 900px) {
+  .galleryList {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .gallery {
+    padding: 32px 16px;
+  }
+
+  .title {
+    margin-bottom: 20px;
+    font-size: 24px;
+  }
+
+  .galleryList {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .image {
+    height: 220px;
+  }
+
+  .lightbox {
+    padding: 12px;
+  }
+
+  .lightboxContent {
+    padding: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .galleryCard,
+  .image {
+    transition: none;
+  }
 }

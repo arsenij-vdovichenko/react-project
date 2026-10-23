@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './RegistrationModal.module.css';
 
 const RegistrationModal = ({ onClose }) => {
@@ -27,6 +27,19 @@ const RegistrationModal = ({ onClose }) => {
       setError('Could not save your data. Please try again.');
     }
   };
+  useEffect(() => {
+  const handleKeyDown = (event) => {
+    if (event.key === 'Escape') {
+      onClose();
+    }
+  };
+
+  window.addEventListener('keydown', handleKeyDown);
+
+  return () => {
+    window.removeEventListener('keydown', handleKeyDown);
+  };
+}, [onClose]);
 
   return (
     <div className={styles.backdrop} onClick={onClose}>

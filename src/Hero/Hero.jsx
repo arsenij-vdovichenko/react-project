@@ -46,6 +46,7 @@ return (
       aria-label="City name"
       value={city}
       onChange={handleCityChange}
+      required
     />
 
     <button className={styles.searchButton} type="submit">

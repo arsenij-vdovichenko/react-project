@@ -107,8 +107,13 @@ const WeeklyForecast = ({ city }) => {
             />
 
             <span className={styles.temperatures}>
-              {item.max}° / {item.min}°
-            </span>
+  <span className={styles.maxTemperature}>
+    {item.max}°
+  </span>
+  <span className={styles.minTemperature}>
+    {item.min}°
+  </span>
+</span>
           </li>
         ))}
       </ul>

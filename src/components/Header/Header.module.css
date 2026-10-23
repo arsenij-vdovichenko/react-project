@@ -2,13 +2,15 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 20px;
   padding: 20px 24px;
-  background-color: #1e293b;
+  background-color: #292020;
   color: #ffffff;
 }
 
 .title {
   font-size: 24px;
+  font-weight: 700;
 }
 
 .nav {
@@ -21,10 +23,11 @@
   color: #ffffff;
   text-decoration: none;
   font-size: 16px;
+  transition: color 0.2s ease;
 }
 
 .nav a:hover {
-  text-decoration: underline;
+  color: #ffa94d;
 }
 
 .menuToggle {
@@ -36,15 +39,53 @@
   cursor: pointer;
 }
 
-@media (max-width: 480px) {
+.registerButton {
+  padding: 10px 16px;
+  border: 1px solid #ffa94d;
+  border-radius: 8px;
+  background-color: #ffa94d;
+  color: #292020;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.registerButton:hover {
+  background-color: #f39432;
+}
+
+.userName {
+  max-width: 200px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.logoutButton {
+  padding: 8px 14px;
+  color: #ffffff;
+  background-color: transparent;
+  border: 1px solid #ffa94d;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.logoutButton:hover {
+  background-color: #ffa94d;
+  color: #292020;
+}
+
+@media (max-width: 768px) {
   .header {
-    position: relative;
     flex-wrap: wrap;
-    padding: 16px;
+    padding: 16px 20px;
   }
 
   .title {
-    font-size: 20px;
+    font-size: 22px;
   }
 
   .menuToggle {
@@ -64,48 +105,35 @@
     display: flex;
   }
 
-   .userName {
+  .userName {
     max-width: 100%;
   }
 }
 
-.registerButton {
-  padding: 10px 16px;
-  border: 1px solid #ffffff;
-  border-radius: 8px;
-  background-color: #ffffff;
-  color: #1e293b;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.registerButton:hover {
-  background-color: #e2e8f0;
-}
-
 @media (max-width: 480px) {
+  .header {
+    padding: 16px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
   .registerButton {
     align-self: flex-start;
   }
 }
 
-.userName {
-  color: #ffffff;
-  font-size: 14px;
-  font-weight: 600;
-  overflow-wrap: anywhere;
+@media (prefers-reduced-motion: reduce) {
+  .nav a,
+  .registerButton,
+  .logoutButton {
+    transition: none;
+  }
 }
 
-.logoutButton {
-  padding: 8px 14px;
-  color: #ffffff;
-  background-color: transparent;
-  border: 1px solid #ffffff;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.logoutButton:hover {
-  background-color: #334155;
+.menuToggle:focus-visible {
+  outline: 2px solid #ffa94d;
+  outline-offset: 4px;
+  border-radius: 4px;
 }

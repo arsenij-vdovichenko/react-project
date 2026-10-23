@@ -63,8 +63,12 @@ return (
     {forecast.map((item) => (
       <li className={styles.item} key={item.dateTime}>
         <span className={styles.time}>
-          {item.dateTime.slice(11, 16)}
-        </span>
+  {new Date(`${item.dateTime.replace(' ', 'T')}Z`).toLocaleTimeString('en-IE', {
+    hour: '2-digit',
+    minute: '2-digit',
+    timeZone: 'UTC',
+  })}
+</span>
 
         <img
           className={styles.icon}

@@ -184,7 +184,7 @@ const Weather = ({ cities, onDeleteCity }) => {
                         onClick={() => setForecastType('weekly')}
                         aria-pressed={forecastType === 'weekly'}
                       >
-                        7 days
+                        5 days
                       </button>
                     </div>
 

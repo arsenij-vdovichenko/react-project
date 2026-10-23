@@ -1,18 +1,29 @@
+
 .footer {
-  padding: 24px 16px;
-  background-color: #1e293b;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 28px 24px;
+  background-color: #ffa94d;
+  color: #292020;
   text-align: center;
 }
 
 .text {
-  margin: 0;
-  color: #cbd5e1;
+  max-width: 1200px;
+  margin: 0 auto;
   font-size: 14px;
+  line-height: 1.7;
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 24px 20px;
+  }
 }
 
 @media (max-width: 480px) {
   .footer {
-    padding: 20px 12px;
+    padding: 20px 14px;
   }
 
   .text {
