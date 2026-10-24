@@ -1,26 +1,38 @@
-
 @import-normalize;
 
 :root {
   font-family: Arial, Helvetica, sans-serif;
-  color: #292020;
-  background: #ffffff;
+  color: #5B4938;
+  background: #F5EFE5;
 
-  --color-pink: #f6dada;
-  --color-orange: #ffa94d;
-  --color-dark: #292020;
-  --color-white: #ffffff;
-  --color-text-muted: #746969;
+  /* Основні кольори сайту */
+  --color-background: #F5EFE5;
+  --color-card: #FFFCF7;
+  --color-sand: #C49A6C;
+  --color-sand-light: #E8D8C2;
+  --color-dark: #5B4938;
+  --color-white: #FFFFFF;
+  --color-text-muted: #81715F;
+  --color-border: #E6DCCB;
+  --color-shadow: rgba(20, 15, 10, 0.08);
+
+  /* Сумісність зі старими CSS-файлами */
+  --color-pink: #F5EFE5;
+  --color-orange: #C49A6C;
 }
 
 * {
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   min-width: 320px;
-  background-color: var(--color-white);
+  background-color: var(--color-background);
   color: var(--color-dark);
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -62,12 +74,8 @@ button {
 a:focus-visible,
 button:focus-visible,
 input:focus-visible {
-  outline: 3px solid var(--color-orange);
+  outline: 3px solid var(--color-sand);
   outline-offset: 3px;
-}
-
-html {
-  scroll-behavior: smooth;
 }
 
 @media (prefers-reduced-motion: reduce) {

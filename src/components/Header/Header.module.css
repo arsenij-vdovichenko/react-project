@@ -137,3 +137,47 @@
   outline-offset: 4px;
   border-radius: 4px;
 }
+
+
+.languageSwitcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 4px;
+  border: 1px solid #E2D2BB;
+  border-radius: 12px;
+  background: #FFFCF7;
+}
+
+.languageButton {
+  min-width: 38px;
+  padding: 8px 10px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: #70573C;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.languageButton:hover {
+  background: #F3E9D9;
+}
+
+.activeLanguage {
+  background: #B58A5A;
+  color: #FFFFFF;
+}
+
+.activeLanguage:hover {
+  background: #9B7248;
+}
+
+@media (max-width: 768px) {
+  .languageSwitcher {
+    align-self: flex-start;
+  }
+}
+
